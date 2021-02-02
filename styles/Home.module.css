@@ -16,7 +16,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1920px;
 }
 
 .footer {
@@ -31,10 +31,6 @@
   font-size: 12px;
   text-align: center;
   line-height: 18px;
-}
-
-.not {
-  font-style: italic;
 }
 
 .title {

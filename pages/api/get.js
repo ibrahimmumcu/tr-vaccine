@@ -47,6 +47,7 @@ async function getData() {
     const data = await db
       .collection(process.env.MONGODB_COLLECTION)
       .find()
+      .sort({date:1})
       .toArray();
     console.log('get data success');
     return data;

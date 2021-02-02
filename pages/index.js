@@ -87,7 +87,7 @@ export default class Home extends React.Component {
               Github
             </a>&nbsp;üzerinden ulaşabilirsiniz.
           </div>
-          <div className={styles.not}>
+          <div>
             Not: Servisin başlangıç tarihi 20 Ocak 2021'dir. Bu tarihten önceki veriler başka kaynaklardan alınmıştır.
           </div>
         </footer>
