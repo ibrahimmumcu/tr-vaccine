@@ -77,7 +77,7 @@ async function addNewItem(number1, number2) {
   });
   try {
     const db = client.db(process.env.MONGODB_DB);
-    //await db.collection(process.env.MONGODB_COLLECTION).insertOne(item);
+    await db.collection(process.env.MONGODB_COLLECTION).insertOne(item);
     console.log('new item has been added', JSON.stringify(item));
     return 'Added';
   } catch (error) {
