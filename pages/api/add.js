@@ -2,7 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 const covid19VaccineUrl = 'https://covid19asi.saglik.gov.tr/';
 
 export default async function handler(req, res) {
-  let number;
+  let number1, number2;
   let browser = null;
   let page;
 
@@ -29,7 +29,10 @@ export default async function handler(req, res) {
 
       page = await browser.newPage();
       await page.goto(covid19VaccineUrl);
-      number = await page.$$eval('.count-nums', (elements) =>
+      number1 = await page.$$eval('.birinci_doz', (elements) =>
+        elements.map((item) => item.textContent)
+      );
+      number2 = await page.$$eval('.ikinci_doz', (elements) =>
         elements.map((item) => item.textContent)
       );
     } catch (error) {
@@ -37,7 +40,7 @@ export default async function handler(req, res) {
     } finally {
       if (browser !== null) {
         await browser.close();
-        const response = await addNewItem(number);
+        const response = await addNewItem(number1, number2);
         res.json(response);
       }
     }
@@ -48,20 +51,24 @@ export default async function handler(req, res) {
       browser = await puppeteer.launch();
       page = await browser.newPage();
       await page.goto(covid19VaccineUrl);
-      number = await page.$$eval('.count-nums', (elements) =>
+      number1 = await page.$$eval('.birinci_doz', (elements) =>
+        elements.map((item) => item.textContent)
+      );
+      number2 = await page.$$eval('.ikinci_doz', (elements) =>
         elements.map((item) => item.textContent)
       );
       await browser.close();
-      const response = await addNewItem(number);
+      const response = await addNewItem(number1, number2);
       res.json(response);
     })();
   }
 }
 
-async function addNewItem(number) {
+async function addNewItem(number1, number2) {
   const item = {
     date: new Date(),
-    number: number[0].replace(/\./g, ''),
+    number: number1[0].replace(/\./g, ''),
+    number2: number2[0].replace(/\./g, ''),
   };
   const client = await MongoClient.connect(process.env.MONGODB_URI, {
     useUnifiedTopology: true,
@@ -70,14 +77,14 @@ async function addNewItem(number) {
   });
   try {
     const db = client.db(process.env.MONGODB_DB);
-    await db.collection(process.env.MONGODB_COLLECTION).insertOne(item);
-    console.log('new item has been added');
+    //await db.collection(process.env.MONGODB_COLLECTION).insertOne(item);
+    console.log('new item has been added', JSON.stringify(item));
     return 'Added';
   } catch (error) {
     console.log('new item error', error);
     return error;
   } finally {
     console.log('new item added close connection');
-    client.close();
+    await client.close();
   }
 }
