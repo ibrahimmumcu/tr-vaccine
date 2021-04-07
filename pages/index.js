@@ -65,6 +65,18 @@ export default class Home extends React.Component {
         mode: 'index',
         intersect: false,
       },
+      spanGaps: true,
+      showLine: false,
+      datasets: {
+        line: {
+          pointRadius: 0,
+        },
+      },
+      elements: {
+        point: {
+          radius: 0,
+        },
+      },
     };
 
     return (
