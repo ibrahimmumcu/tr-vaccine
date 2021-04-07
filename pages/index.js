@@ -28,11 +28,18 @@ export default class Home extends React.Component {
       labels: this.props.data.map((item) => item.date),
       datasets: [
         {
-          label: '# Toplam Aşı Sayısı',
+          label: '# 1. Doz Aşı Sayısı',
           data: this.props.data.map((item) => item.number),
           fill: false,
           backgroundColor: 'rgb(255, 99, 132)',
           borderColor: 'rgba(255, 99, 132, 0.2)',
+        },
+        {
+          label: '# 2. Doz Aşı Sayısı',
+          data: this.props.data.map((item) => item.number2),
+          fill: false,
+          backgroundColor: 'rgb(54, 162, 235)',
+          borderColor: 'rgba(54, 162, 235, 0.2)',
         },
       ],
     };
@@ -75,7 +82,10 @@ export default class Home extends React.Component {
 
         <footer className={styles.footer}>
           <div>
-            {new Date().getFullYear()} - <a href="https://ibrahimmumcu.com" target="_blank">Ibrahim Mumcu</a>
+            {new Date().getFullYear()} -{' '}
+            <a href="https://ibrahimmumcu.com" target="_blank">
+              Ibrahim Mumcu
+            </a>
           </div>
           <div>
             Veriler belirli aralıklarla otomatik olarak&nbsp;
@@ -83,12 +93,17 @@ export default class Home extends React.Component {
               Sağlık Bakanlığı
             </a>
             'ndan alınmaktadır. Kaynak kodlarına&nbsp;
-            <a href="https://github.com/ibrahimmumcu/tr-vaccine" target="_blank">
+            <a
+              href="https://github.com/ibrahimmumcu/tr-vaccine"
+              target="_blank"
+            >
               Github
-            </a>&nbsp;üzerinden ulaşabilirsiniz.
+            </a>
+            &nbsp;üzerinden ulaşabilirsiniz.
           </div>
           <div>
-            Not: Servisin başlangıç tarihi 20 Ocak 2021'dir. Bu tarihten önceki veriler başka kaynaklardan alınmıştır.
+            Not: Servisin başlangıç tarihi 20 Ocak 2021'dir. Bu tarihten önceki
+            veriler başka kaynaklardan alınmıştır.
           </div>
         </footer>
       </div>
